@@ -22,7 +22,7 @@ mkdir -p /workspace/Training/clients/$name /workspace/Training/clients/$name/log
 /workspace/Training/clients/$name/reg /workspace/Training/clients/$name/img
 cp -r /workspace/Training/$name /workspace/Training/clients/$name/img/"40_${token} ${class}"
 cd /workspace/Training/clients/$name/reg/
-ghclone https://github.com/DerJimno/SD-Regularization-Images/tree/main/$class
+ghclone https://github.com/DerJimno/SD-Regularization-Images/tree/main/$class > /dev/null 2>&1
 mv $class "1_${class}"
 
 
