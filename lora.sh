@@ -2,13 +2,14 @@
 
 apt update > /dev/null 2>&1
 apt install -y fdupes > /dev/null 2>&1
+pip install github-clone --break-system-packages > /dev/null 2>&1
 
 token=$1
 class=$2
 
 mkdir -p Training
 cd Training
-git clone https://github.com/DerJimno/SD-Regularization-Images.git
+
 
 python <(curl -sL https://rb.gy/tjdxr) --link=https://drive.google.com/drive/folders/$3
 name="$(\ls -1dt * | head -n 1)"
@@ -24,7 +25,9 @@ cd /workspace/Training/$name ; sh <(curl -sL https://rb.gy/8wzni) # rename photo
 mkdir -p /workspace/Training/clients/$name /workspace/Training/clients/$name/log \
 /workspace/Training/clients/$name/reg /workspace/Training/clients/$name/img
 cp -r /workspace/Training/$name /workspace/Training/clients/$name/img/"${steps}_${token} ${class}"
-cp -r /workspace/Training/SD-Regularization-Images/$class /workspace/Training/clients/$name/reg/"1_${class}"
+cd /workspace/Training/clients/$name/reg/
+ghclone https://github.com/DerJimno/SD-Regularization-Images/tree/main/$class
+mv $class "1_${class}"
 
 
 cd /workspace/kohya_ss
