@@ -17,6 +17,8 @@ fdupes -dN $name > /dev/null
 
 
 cd /workspace/Training/$name ; sh <(curl -sL https://rb.gy/8wzni) # rename photos
+[ -d /workspace/Training/$name ] && for file in /workspace/Training/$name/*; \
+do [ -f "$file" ] && echo "$token, $class, $4" > "${file%.*}.txt" ; done
 
 mkdir -p /workspace/Training/clients/$name /workspace/Training/clients/$name/log \
 /workspace/Training/clients/$name/reg /workspace/Training/clients/$name/img
