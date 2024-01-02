@@ -2,7 +2,7 @@
 
 apt update > /dev/null 2>&1
 apt install -y fdupes > /dev/null 2>&1
-pip install github-clone --break-system-packages > /dev/null 2>&1
+pip install github-clone > /dev/null 2>&1
 
 token=$1
 class=$2
