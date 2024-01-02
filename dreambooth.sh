@@ -27,7 +27,7 @@ mv $class "1_${class}"
 
 
 # Parameter for kohya-ss
-sed "s/client/$name/g" <(curl -sL https://raw.githubusercontent.com/DerJimno/kohya-ss-conf/main/dreambooth.json) \
+sed "s/prod/$name/g" <(curl -sL https://raw.githubusercontent.com/DerJimno/kohya-ss-conf/main/dreambooth.json) \
 > /workspace/dreambooth.json
 
 
