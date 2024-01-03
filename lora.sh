@@ -31,13 +31,13 @@ cd /workspace/Training/clients/$name/reg/
 
 case $class in
     "man")
-        gdown -q 119tXRH65NyN352kKAtGdG7y9mD2ZFYOS
+        gdown -q 1nwUzBFrMVAidF7BrOsCY8kuYd3zYEbQf
         ;;
     "woman")
-        gdown -q 1rX5O9MSx9F26gCFp4xlgasoxhbLJI7f_
+        gdown -q 1BIUTc7_y8V3PyePC2uc8eqwcTe-OOlj-
         ;;
     "person")
-        gdown -q 1mXhhSOGEMS4BYYf8B0SvbBSCUCT_aMR3
+        gdown -q 1XF28rqaZyPArcQfLLlVPpr2owMEHAGBb
         ;;
     *)
 	    echo "There is no such class: $class!"
