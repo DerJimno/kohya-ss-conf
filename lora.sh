@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Checks that said parameters are recieved
+[ "$#" -ge 3 ] || { echo "Error: Missing required parameters"; exit 1; }
+
 apt update > /dev/null 2>&1
 apt install -y fdupes > /dev/null 2>&1
 
