@@ -2,7 +2,6 @@
 
 apt update > /dev/null 2>&1
 apt install -y fdupes > /dev/null 2>&1
-pip install github-clone > /dev/null 2>&1
 
 token=$1
 class=$2
@@ -24,8 +23,26 @@ mkdir -p /workspace/Training/clients/$name /workspace/Training/clients/$name/log
 /workspace/Training/clients/$name/reg /workspace/Training/clients/$name/img
 cp -r /workspace/Training/$name /workspace/Training/clients/$name/img/"40_${token} ${class}"
 cd /workspace/Training/clients/$name/reg/
-ghclone https://github.com/DerJimno/SD-Regularization-Images/tree/main/$class > /dev/null 2>&1
-mv $class "1_${class}"
+
+case $class in
+    "man")
+        gdown -q 119tXRH65NyN352kKAtGdG7y9mD2ZFYOS
+        ;;
+    "woman")
+        gdown -q 1rX5O9MSx9F26gCFp4xlgasoxhbLJI7f_
+        ;;
+    "person")
+        gdown -q 1mXhhSOGEMS4BYYf8B0SvbBSCUCT_aMR3
+        ;;
+    "artstyle")
+        gdown -q 122OVeaBooLJq5Hz9lg5mBUoFjsWp5Exl
+        ;;
+    *)
+        echo "There is no such class: $class!"
+        ;;
+esac
+[ -f $class.tar.gz ] && mkdir -p 1_$class && tar -xf $class.tar.gz -C 1_$class
+[ -f $class.tar.gz ] && rm -rf $class.tar.gz
 
 
 # Parameter for kohya-ss
