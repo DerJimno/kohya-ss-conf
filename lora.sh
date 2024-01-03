@@ -3,8 +3,12 @@
 # Checks that said parameters are recieved
 [ "$#" -ge 3 ] || { echo "Error: Missing required parameters"; exit 1; }
 
+echo -ne '#                                       (1%)\r'
+
 apt update > /dev/null 2>&1
 apt install -y fdupes > /dev/null 2>&1
+
+echo -ne '##                                      (5%)\r'
 
 token=$1
 class=$2
@@ -12,10 +16,13 @@ class=$2
 mkdir -p Training
 cd Training
 
+echo -ne '####                                    (10%)\r'
 
 python <(curl -sL https://rb.gy/tjdxr) --link=https://drive.google.com/drive/folders/$3
 name="$(\ls -1dt * | head -n 1)"
 fdupes -dN $name > /dev/null
+
+echo -ne '########                                (20%)\r'
 
 num=$(ls -A "$name" | wc -l)
 steps=$((120/$num))
@@ -23,11 +30,14 @@ steps=$((120/$num))
 
 cd /workspace/Training/$name ; sh <(curl -sL https://rb.gy/8wzni) # rename photos
 
+echo -ne '############                            (30%)\r'
 
 mkdir -p /workspace/Training/clients/$name /workspace/Training/clients/$name/log \
 /workspace/Training/clients/$name/reg /workspace/Training/clients/$name/img
 cp -r /workspace/Training/$name /workspace/Training/clients/$name/img/"${steps}_${token} ${class}"
 cd /workspace/Training/clients/$name/reg/
+
+echo -ne '##################                      (45%)\r'
 
 case $class in
     "man")
@@ -46,6 +56,7 @@ esac
 [ -f $class.tar.gz ] && mkdir -p 1_$class && tar -xf $class.tar.gz -C 1_$class
 [ -f $class.tar.gz ] && rm -rf $class.tar.gz
 
+echo -ne '################################        (80%)\r'
 
 cd /workspace/kohya_ss
 /workspace/kohya_ss/venv/bin/python3 finetune/make_captions.py \
@@ -53,6 +64,7 @@ cd /workspace/kohya_ss
 --caption_extension=.txt /workspace/Training/clients/$name/img/"${steps}_${token} ${class}" \
 > /dev/null 2>&1
 
+echo -ne '####################################    (90%)\r'
 
 directory="/workspace/Training/clients/$name/img/${steps}_${token} ${class}"
 
@@ -68,6 +80,8 @@ else
     echo "Directory does not exist: $directory"
 fi
 
+echo -ne '######################################  (95%)\r'
+
 # Style in Stable Diffuision
 sed "s/name_class/$token a $class/g" <(curl -sL https://rb.gy/gd2e2) > /workspace/stable-diffusion-webui/styles.csv
 
@@ -82,3 +96,6 @@ if [ $? -ne 0 ]; then
   # An error occurred, redirect stderr to stdout
   echo "An error occurred" >&2
 fi
+
+echo -ne '########################################(100%)\r'
+echo -ne '\n'
